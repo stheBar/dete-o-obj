@@ -1,0 +1,1 @@
+# dete-o-obj
