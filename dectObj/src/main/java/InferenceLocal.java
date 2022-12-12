@@ -31,16 +31,25 @@ Mat mat= Imgcodecs.imread(filePath);
         fileInputStreamReader.read(bytes);
         encodedFile = new String(Base64.getEncoder().encode(bytes), StandardCharsets.US_ASCII);
 
-       /* String API_KEY = "iJtaImp5GrBtHzffbVzg"; // Your API Key
-        String DATASET_NAME = "nn-gl4tb"; //
-        String MODEL_ENDPOINT = "nn-gl4tb/3"; // model endpoint*/
+     //placa
 
+       String API_KEY = "iJtaImp5GrBtHzffbVzg"; // Your API Key
+        String DATASET_NAME = "nn-gl4tb"; //
+        String MODEL_ENDPOINT = "nn-gl4tb/3"; // model endpoint
+        String classes="placa";
+
+// perfil
+/*
         String API_KEY = "B1Tbf9LNtzt7CLZxfePX"; // Your API Key
         String DATASET_NAME = "perfilssf"; // Set Dataset Name (Found in Dataset URL)
         String MODEL_ENDPOINT = "perfilssf/2"; // model endpoint
+         String classes="perfil";
+*/
         // Construct the URL
         String uploadURL = "https://detect.roboflow.com/" + MODEL_ENDPOINT + "?api_key=" + API_KEY
-                + "&classes=perfil&confidence=70&overlap=80";
+                + "&classes="+classes+"&confidence=70&overlap=80";
+
+
 
         // Http Request
         HttpURLConnection connection = null;
@@ -72,7 +81,8 @@ Mat mat= Imgcodecs.imread(filePath);
             System.out.println(json);
             Gson gson=new GsonBuilder().create();
  Root root=gson.fromJson(json.toString(),Root.class);
-
+            
+ if(!root.predictions.isEmpty())
             System.out.println(root.predictions.get(0).myclass);
 
             for (Prediction prediction: root.predictions) {
